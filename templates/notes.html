@@ -17,6 +17,9 @@
 </head>
 <body class="notesPage">
 {{ mobile_notes }}
+
+<!-- TODO переместить в base.html -->
+<!-- Navigation -->
 <header id="header">
   <div class="container">
     <div class="header">
@@ -44,22 +47,33 @@
             <a href="tel:+79179023800">
               <button class="header__block_btn">Перезвоните мне</button>
             </a>
+            <!--                     Если пользователь авторизован                                 -->
             <div class="header__block_auth">
               <img src="{% static 'img/avatars/1.svg' %}" alt="account" class="header__account_img">
               <span class="header__block_auth__intro">Алиса И.</span>
             </div>
+            <!-- ________________________________________________________________________________  -->
+            <!-- Если пользователь не авторизован -->
+<!--            <div class="header__block_auth">-->
+<!--							<img src="{% static 'img/acc.svg' %}" alt="account" class="header__account_img">-->
+<!--							<span class="header__block_auth__intro">Войти</span>-->
+<!--						</div>-->
+            <!-- ________________________________________________________________________________  -->
+
           </div>
         </div>
       </div>
 
-
     </div>
   </div>
 </header>
+
+<!-- Содержимое страницы -->
 <section id="notes">
   <div class="container">
     <div class="notes">
       <div class="row">
+        <!--                                Sidebar                            -->
         <div class="col-md-2">
           <div class="accaunt__left">
             <div class="accaunt__ava fic">
@@ -109,24 +123,34 @@
             </nav>
           </div>
         </div>
+        <!-- __________________________________________________________________________________________ -->
+
+        <!--                                Записи                                                      -->
         <div class="col-md-12 col-lg-7">
+          <!--              Надпись                 -->
           <div class="notes__main">
             <div class="notes__title">Мои записи</div>
             <hr class="hr">
           </div>
+          <!-- ___________________________________  -->
+          <!--              Надпись на Мобилке      -->
           <div class="notes__pay mob">
             <div class="notes__pay_block">
               <div class="notes__pay_title">Оплата услуг</div>
               <div class="notes__pay_info">Вы можете оплатить услуги прямо сейчас онлайн или расплатиться в салоне</div>
             </div>
 
-
+            <!-- Форма оплаты Всех услуг? -->
             <div class="notes__pay_block">
               <div class="notes__pay_intro">Сумма оплаты</div>
               <div class="notes__pay_sum">3 900 руб</div>
               <button class="notes__pay_btn">Оплатить онлайн</button>
             </div>
+            <!-- ________________________ -->
           </div>
+          <!-- ___________________________________  -->
+
+
           <div class="notes__content notes__content_upcoming">
             <div class="notes__main_title">ПРЕДСТОЯЩИЕ</div>
             <div class="notes__main_block">
@@ -165,7 +189,14 @@
                 <div class="notes__footer fic">
                   <a href="#" class="notes__footer_link rewiewPopupOpen">Оставить отзыв</a>
                   <a href="#" class="notes__footer_link tipsPopupOpen">Чаевые</a>
-                  <button class="notes__footer_btn payPopupOpen">Оплатить</button>
+                  <form method="POST" action="https://yoomoney.ru/quickpay/confirm">
+                    <input type="hidden" name="receiver" value="4100118760636728"/>
+                    <input type="hidden" name="label" value="$order_id"/>
+                    <input type="hidden" name="quickpay-form" value="button"/>
+                    <input type="hidden" name="sum" value="3.00" data-type="number"/>
+                    <input type="hidden" name="paymentType" value="AC"/>
+                    <button class="notes__footer_btn" type="submit">Оплатить</button>
+                  </form>
                   <div class="notes__main_pay unPaid">НЕОПЛАЧЕНО</div>
                 </div>
               </div>
