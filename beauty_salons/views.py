@@ -13,6 +13,15 @@ def serviceFinally(request):
     return render(request, 'serviceFinally.html')
 
 
+# @login_required
 def notes(request):
-
-    return render(request, 'notes.html')
+    """
+    Записи
+    """
+    context = {
+        'title': 'Записи',
+    }
+    # context['user'] = request.user
+    return render(request,
+                  'notes.html',
+                  context)

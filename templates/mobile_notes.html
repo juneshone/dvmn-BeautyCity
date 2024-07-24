@@ -1,0 +1,91 @@
+{% load static %}
+<!-- Мобильное меню -->
+<section id="mobMenu">
+  <div class="mobMenu accMenu">
+    <div class="container">
+      <div class="mobMenu__header">
+        <div class="row">
+          <div class="col-4 col-md-3">
+            <a href="/">
+              <img src="{% static 'img/Logo.svg' %}" alt="Logo" class="logo header__logo">
+            </a>
+          </div>
+          <div class="col-3 col-md-2">
+            <img src="{% static 'img/x.svg' %}" alt="x" class="mobMenuClose">
+          </div>
+        </div>
+      </div>
+      <div class="mobMenu__content">
+        <div class="row">
+          <div class="col-md-3">
+            <nav>
+              <div class="accaunt__left">
+                <div class="accaunt__ava fic">
+                  <img src="{% static 'img/avatars/1.svg' %}" alt="avatar" class="accaunt__ava_img">
+                  <span class="accaunt__ava_name">Алиса И.</span>
+                </div>
+                <div class="accaunt__settings fic">
+                  <a href="#" class="accaunt__settings_intro">Изменить профиль</a>
+                  <a href="#" class="accaunt__settings_out">Выйти</a>
+                </div>
+                <nav>
+                  <div class="accaunt__menu_title">МЕНЮ</div>
+                  <ul class="accaunt__menu">
+                    <li class="accaunt__menu_item active">
+                      <a href="#" class="accaunt__menu_item__link">
+                        <div class="accaunt__menu_block fic">
+                          <img src="{% static 'img/icons/list.svg' %}" alt="icon" class="accaunt__menu_icon">
+                          <span class="accaunt__menu_item__link_intro">Мои записи</span>
+                        </div>
+                      </a>
+                    </li>
+                    <li class="accaunt__menu_item">
+                      <a href="#" class="accaunt__menu_item__link">
+                        <div class="accaunt__menu_block fic">
+                          <img src="{% static 'img/icons/settings.svg' %}" alt="icon" class="accaunt__menu_icon">
+                          <span class="accaunt__menu_item__link_intro">Настройки</span>
+                        </div>
+                      </a>
+                    </li>
+                    <li class="accaunt__menu_item">
+                      <a href="#" class="accaunt__menu_item__link">
+                        <div class="accaunt__menu_block fic">
+                          <img src="{% static 'img/icons/tex.svg' %}" alt="icon" class="accaunt__menu_icon">
+                          <span class="accaunt__menu_item__link_intro">Тех. поддержка</span>
+                        </div>
+                      </a>
+                    </li>
+                    <li class="accaunt__menu_item">
+                      <a href="#" class="accaunt__menu_item__link">
+                        <div class="accaunt__menu_block fic">
+                          <img src="{% static 'img/icons/pay.svg' %}" alt="icon" class="accaunt__menu_icon">
+                          <span class="accaunt__menu_item__link_intro">Платежи</span>
+                        </div>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </nav>
+            <nav>
+              <ul class="mobMenu__menu">
+                <li class="mobMenu__menu_item">
+                  <a href="#" class="mobMenu__menu_link">Мастера</a>
+                </li>
+                <li class="mobMenu__menu_item"><a href="#" class="mobMenu__menu_link">Услуги</a></li>
+                <li class="mobMenu__menu_item"><a href="#" class="mobMenu__menu_link">Отзывы</a></li>
+                <li class="mobMenu__menu_item"><a href="#" class="mobMenu__menu_link">Контакты</a></li>
+              </ul>
+            </nav>
+            <a href="#" class="mobMenu__account">Личный кабинет</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <button class="mobMenu__btn">Перезвоните мне</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
