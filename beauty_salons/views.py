@@ -44,7 +44,7 @@ def save_pay(request):
         operation_id = cd.get('operation_id')
         amount = round(float(cd.get('amount')), 2)
         is_success = cd.get('unaccepted') == 'false'
-        appointment = int(cd.get('label'))
+        appointment = 155
         Pay.objects.create(
             operation_id=operation_id,
             amount=amount,
