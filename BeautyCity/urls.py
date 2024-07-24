@@ -25,4 +25,5 @@ urlpatterns = [
     path('service/', views.service),
     path('serviceFinally/', views.serviceFinally),
     path('notes/', views.notes),
+    path('save_pay/', views.save_pay),
 ]
