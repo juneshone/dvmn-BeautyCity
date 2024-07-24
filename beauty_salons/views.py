@@ -15,3 +15,7 @@ def serviceFinally(request):
 
 def account(request):
     return render(request, 'account.html')
+
+
+def popup(request):
+    return render(request, 'popup.html')
