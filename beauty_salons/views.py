@@ -41,10 +41,10 @@ def save_pay(request):
     cd = request.POST
     print(cd)
     try:
-        operation_id = int(cd.get('operation_id')[0])
-        amount = round(float(cd.get('amount')[0]), 2)
-        is_success = cd.get('unaccepted')[0] == 'false'
-        appointment = int(cd.get('label')[0])
+        operation_id = cd.get('operation_id')
+        amount = round(float(cd.get('amount')), 2)
+        is_success = cd.get('unaccepted') == 'false'
+        appointment = int(cd.get('label'))
         Pay.objects.create(
             operation_id=operation_id,
             amount=amount,
