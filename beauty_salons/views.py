@@ -11,3 +11,8 @@ def service(request):
 
 def serviceFinally(request):
     return render(request, 'serviceFinally.html')
+
+
+def notes(request):
+
+    return render(request, 'notes.html')
