@@ -70,9 +70,6 @@ class Address(models.Model):
         'Координаты (широта)'
     )
 
-    def __str__(self):
-        return self.title
-
     class Meta:
         verbose_name = 'Адрес салона'
         verbose_name_plural = 'Адреса салонов'
@@ -111,8 +108,8 @@ class Salon(models.Model):
     address = models.ForeignKey(
         Address,
         on_delete=models.CASCADE,
-        related_name='addresses',
-        verbose_name = 'Адреса салонов'
+        related_name='salons',
+        verbose_name='Адреса салонов'
     )
     image = models.ImageField(
         'Изображение',
@@ -144,7 +141,7 @@ class Appointment(models.Model):
         Master,
         on_delete=models.CASCADE,
         related_name='masters_appointments',
-        verbose_name = 'Мастер'
+        verbose_name='Мастер'
     )
     client = models.ForeignKey(
         CustomUser,
