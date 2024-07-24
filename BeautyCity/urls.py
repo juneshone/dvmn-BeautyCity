@@ -21,7 +21,7 @@ from beauty_salons import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('', views.index),
+    path('', views.index, name='index'),
     path('service/', views.service),
     path('serviceFinally/', views.serviceFinally),
     path('notes/', views.notes),
