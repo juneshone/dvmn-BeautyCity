@@ -3,7 +3,11 @@ from django.contrib.auth.models import AbstractUser
 
 
 class CustomUser(AbstractUser):
-    phonenumber = models.CharField('Телефон', max_length=100, unique=True)
+    phonenumber = models.CharField(
+        'Телефон',
+        max_length=100,
+        unique=True
+    )
 
     USERNAME_FIELD = 'phonenumber'
     REQUIRED_FIELDS = ['username']
@@ -61,14 +65,19 @@ class Address(models.Model):
 
 
 class Master(models.Model):
-    name = models.ForeignKey(
-        CustomUser,
-        on_delete=models.CASCADE,
-        related_name='masters'
+    name = username = models.CharField(
+        'ФИО',
+        max_length=100,
+        unique=True
     )
     profile = models.ManyToManyField(
         ServiceCategory,
         related_name='masters_profiles'
+    )
+    image = models.ImageField(
+        'Изображение',
+        blank=True,
+        null=True,
     )
 
     def __str__(self):
@@ -132,14 +141,14 @@ class Appointment(models.Model):
     date = models.DateField('Дата')
     time = models.TimeField('Время')
     STATUS_CHOICES = [
-        ('OPEN', 'Открыта'),
-        ('CLOSED', 'Закрыта'),
+        ('PAID', 'Оплаченный'),
+        ('NOT_PAID', 'Не оплаченный'),
     ]
     status = models.CharField(
         'Статус',
         max_length=50,
         choices=STATUS_CHOICES,
-        default='OPEN'
+        default='NOT_PAID'
     )
 
 
