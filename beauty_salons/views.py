@@ -11,3 +11,7 @@ def service(request):
 
 def serviceFinally(request):
     return render(request, 'serviceFinally.html')
+
+
+def account(request):
+    return render(request, 'account.html')
