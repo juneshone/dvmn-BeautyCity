@@ -76,7 +76,7 @@ class Address(models.Model):
 
 
 class Master(models.Model):
-    name = username = models.CharField(
+    name = models.CharField(
         'ФИО',
         max_length=100,
         unique=True
