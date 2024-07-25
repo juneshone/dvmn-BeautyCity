@@ -180,3 +180,8 @@ class Appointment(models.Model):
     def __str__(self):
         return f'{self.name} {self.salon} {self.master}'
 
+
+class Customer(models.Model):
+    phone_number = models.CharField('номер телефона', max_length=15)
+    pin = models.CharField('код', max_length=4)
+
