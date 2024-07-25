@@ -23,10 +23,10 @@ from django.conf.urls.static import static
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('', views.index, name='index'),
-    path('service/', views.service),
-    path('serviceFinally/', views.serviceFinally),
-    path('notes/', views.notes),
-    path('save_pay/', views.save_pay),
+    path('service/', views.service, name='service'),
+    path('serviceFinally/', views.serviceFinally, name='serviceFinally'),
+    path('notes/', views.notes, name='notes'),
+    path('save_pay/', views.save_pay, name='save_pay'),
 ]
 
 #
