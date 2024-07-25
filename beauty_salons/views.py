@@ -6,7 +6,7 @@ from django.views.decorators.http import require_http_methods
 
 import json
 
-from .models import Pay
+from .models import Pay, Salon, ServiceCategory, Master
 
 
 def index(request):
@@ -14,6 +14,15 @@ def index(request):
 
 
 def service(request):
+    salons = Salon.objects.all()
+    categories = ServiceCategory.objects.all().prefetch_related('services')
+    masters = Master.objects.all()
+    context = {
+        'salons': salons,
+        'categories': categories,
+        'masters': masters,
+    }
+    return render(request, 'service.html', context)
     return render(request, 'service.html')
 
 
