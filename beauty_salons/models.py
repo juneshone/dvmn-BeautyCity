@@ -29,6 +29,10 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return f'{self.username} {self.phonenumber}'
 
+    class Meta:
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
+
 
 class ServiceCategory(models.Model):
     title = models.CharField('Название', max_length=100)
