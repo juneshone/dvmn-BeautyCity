@@ -42,6 +42,7 @@ class Service(models.Model):
     price = models.IntegerField('Цена')
     image = models.ImageField(
         'Изображение',
+        upload_to='services_images/',
         blank=True,
         null=True,
     )
@@ -87,6 +88,7 @@ class Master(models.Model):
     )
     image = models.ImageField(
         'Изображение',
+        upload_to='masters_images/',
         blank=True,
         null=True,
     )
@@ -113,7 +115,8 @@ class Salon(models.Model):
     )
     image = models.ImageField(
         'Изображение',
-        blank=True
+        upload_to='salons_images/',
+        blank=True,
     )
 
     def __str__(self):
@@ -162,11 +165,10 @@ class Appointment(models.Model):
         default='NOT_PAID'
     )
 
+    class Meta:
+        verbose_name = 'Запись'
+        verbose_name_plural = 'Записи'
 
-def __str__(self):
-    return f'{self.name} {self.salon} {self.master}'
+    def __str__(self):
+        return f'{self.name} {self.salon} {self.master}'
 
-
-class Meta:
-    verbose_name = 'Запись'
-    verbose_name_plural = 'Записи'
