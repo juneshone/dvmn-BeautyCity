@@ -3,10 +3,11 @@ from django.http import JsonResponse, HttpResponse, HttpResponseServerError
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
+from django.utils import timezone
 
 import json
 
-from .models import Pay
+from .models import Pay, Salon, Master, Service, ServiceCategory, Appointment, Address, CustomUser
 
 
 def index(request):
@@ -21,12 +22,17 @@ def serviceFinally(request):
     return render(request, 'serviceFinally.html')
 
 
-# @login_required
+@login_required
 def notes(request):
     """
     Записи
     """
+    notes = Appointment.objects.filter(client=request.user,)
+    past_notes = notes.filter(date__lt=timezone.now())
+    future_notes = notes.filter(date__gte=timezone.now())
     context = {
+        'f_notes': future_notes,
+        'p_notes': past_notes,
         'title': 'Записи',
     }
     # context['user'] = request.user
