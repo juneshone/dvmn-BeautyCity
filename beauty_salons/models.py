@@ -22,7 +22,11 @@ class CustomUser(AbstractUser):
         max_length=100,
         unique=True
     )
-
+    image = models.ImageField(
+        'Изображение',
+        upload_to='users_images/',
+        blank=True,
+    )
     USERNAME_FIELD = 'phonenumber'
     REQUIRED_FIELDS = ['username']
 
