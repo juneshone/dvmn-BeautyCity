@@ -22,12 +22,20 @@ class CustomUser(AbstractUser):
         max_length=100,
         unique=True
     )
-
+    image = models.ImageField(
+        'Изображение',
+        upload_to='users_images/',
+        blank=True,
+    )
     USERNAME_FIELD = 'phonenumber'
     REQUIRED_FIELDS = ['username']
 
     def __str__(self):
         return f'{self.username} {self.phonenumber}'
+
+    class Meta:
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
 
 
 class ServiceCategory(models.Model):
