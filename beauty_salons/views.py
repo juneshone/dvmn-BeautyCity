@@ -1,12 +1,11 @@
+from django.contrib.auth import login
+from django.http import JsonResponse, HttpResponseServerError
 from django.shortcuts import render
-from django.http import JsonResponse, HttpResponse, HttpResponseServerError
-from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
-import json
-
-from .models import Pay
+from .models import Pay, Customer
+from .utils import get_code
 
 
 def index(request):
@@ -19,6 +18,10 @@ def service(request):
 
 def serviceFinally(request):
     return render(request, 'serviceFinally.html')
+
+
+def account(request):
+    return render(request, 'account.html')
 
 
 # @login_required
@@ -55,3 +58,30 @@ def save_pay(request):
         print(e)
         return HttpResponseServerError('Error save pay')
     return JsonResponse({'status': 'ok'})
+
+
+def send_code(request):
+    if request.method == 'POST':
+        phone = request.POST.get('phone')
+        customer, created = Customer.objects.get_or_create(phone_number=phone)
+        if not created:
+            pin = get_code()
+            customer.pin = pin
+            customer.save()
+        pin = customer.pin
+        request.session['pin'] = pin
+        request.session['phone'] = phone
+        return JsonResponse({'pin': pin})
+
+
+def verify_code(request):
+    if request.method == 'POST':
+        code = request.POST.get('code')
+        phone = request.session.get('phone')
+        pin = request.session.get('pin')
+        if code == pin:
+            user = Customer.objects.get(phone_number=phone)
+            login(request, user)
+            return JsonResponse({'success': True, 'redirect_url': '/account/'})
+        else:
+            return JsonResponse({'success': False, 'error': 'Invalid code'})
