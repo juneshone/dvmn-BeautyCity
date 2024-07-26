@@ -10,11 +10,21 @@ import json
 from .models import Pay, Salon, Master, Service, ServiceCategory, Appointment, Address, CustomUser
 
 
+
 def index(request):
     return render(request, 'index.html')
 
 
 def service(request):
+    salons = Salon.objects.all()
+    categories = ServiceCategory.objects.all().prefetch_related('services')
+    masters = Master.objects.all()
+    context = {
+        'salons': salons,
+        'categories': categories,
+        'masters': masters,
+    }
+    return render(request, 'service.html', context)
     return render(request, 'service.html')
 
 
