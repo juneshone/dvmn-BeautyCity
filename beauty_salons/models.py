@@ -3,10 +3,15 @@ from django.contrib.auth.models import AbstractUser
 
 
 class Pay(models.Model):
+    _TYPE = (
+        ('tips', "Чаевые"),
+        ('service', "Услуга"),
+    )
     appointment = models.BigIntegerField(verbose_name="Номер записи", blank=True, null=True)
     operation_id = models.CharField(verbose_name="ID операции", max_length=255, unique=True)
     amount = models.DecimalField(verbose_name="Сумма", max_digits=10, decimal_places=2, blank=True, null=True)
     is_success = models.BooleanField(verbose_name="Успешно", blank=True, null=True)
+    _type = models.CharField(verbose_name="Тип", max_length=255, choices=_TYPE, blank=True, null=True)
 
     class Meta:
         verbose_name = "Платеж"
@@ -179,4 +184,3 @@ class Appointment(models.Model):
 
     def __str__(self):
         return f'{self.name} {self.salon} {self.master}'
-
