@@ -199,13 +199,13 @@ $(document).ready(function() {
 							  	<div class="accordion__block_master">Анастасия Сергеева</div>
 						  	</div>
 						  	<div class="accordion__block_prof">Визажист</div>
-						  </div>	
+						  </div>
 			`)
 			// $('.service__masters div[data-masters="Pushkinskaya"]').addClass('vib')
 		}
 		console.log(thisName)
 		if(thisName === 'BeautyCity Ленина') {
-			
+
 			$('.service__masters > .panel').html(`
 				<div class="accordion__block fic">
 						  	<div class="accordion__block_elems fic">
@@ -308,7 +308,7 @@ $(document).ready(function() {
 						  	<div class="accordion__block_prof">Визажист</div>
 						  </div>
 			`)
-			
+
 		}
 
 		$(this).parent().parent().find('> button.active').addClass('selected').text(thisName + '  ' +thisAddress)
@@ -394,10 +394,53 @@ $(document).ready(function() {
 		$('#tipsModal').arcticmodal();
 	})
 	
-	$('.authPopup__form').submit(function() {
-		$('#confirmModal').arcticmodal();
-		return false
-	})
+	// Handle phone form submission
+    $('.authPopup__form').submit(function(event) {
+        event.preventDefault();
+        var form = $(this);
+        $.ajax({
+            type: 'POST',
+            url: '',
+            data: form.serialize(),
+            success: function(response) {
+                if (response.status === 'success') {
+                    $('#confirmPhoneNumber').text(response.phone);
+                    $('#confirmModal').arcticmodal();
+                    // Display the code for testing purposes
+                    alert('Code for testing: ' + response.code);
+                } else {
+                    // Handle errors (optional)
+                    console.log(response.errors);
+                }
+            },
+            error: function(response) {
+                console.log('An error occurred.');
+            }
+        });
+    });
+
+    // Handle pin form submission
+    $('.confirmPopup form').submit(function(event) {
+        event.preventDefault();
+        var form = $(this);
+        $.ajax({
+            type: 'POST',
+            url: '',
+            data: form.serialize(),
+            success: function(response) {
+                if (response.status === 'success') {
+                    window.location.href = response.redirect_url;
+                } else {
+                    // Handle errors (optional)
+                    console.log(response.errors);
+                }
+            },
+            error: function(response) {
+                console.log('An error occurred.');
+            }
+        });
+    });
+
 
 	//service
 	$('.time__items .time__elems_elem .time__elems_btn').click(function(e) {

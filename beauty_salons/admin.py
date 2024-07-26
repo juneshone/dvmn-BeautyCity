@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from .models import Pay, Salon, Master, Service, ServiceCategory, Appointment, \
-    Address, CustomUser, Customer
+    Address, CustomUser
 
 
 @admin.register(Pay)
@@ -41,9 +41,4 @@ class AddressAdmin(admin.ModelAdmin):
 
 @admin.register(CustomUser)
 class CustomUserAdmin(admin.ModelAdmin):
-    list_display = ('phonenumber',)
-
-
-@admin.register(Customer)
-class CustomerAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('phone_number',)

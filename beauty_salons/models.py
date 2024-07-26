@@ -17,7 +17,7 @@ class Pay(models.Model):
 
 
 class CustomUser(AbstractUser):
-    phonenumber = models.CharField(
+    phone_number = models.CharField(
         'Телефон',
         max_length=100,
         unique=True
@@ -27,11 +27,12 @@ class CustomUser(AbstractUser):
         upload_to='users_images/',
         blank=True,
     )
-    USERNAME_FIELD = 'phonenumber'
+    pin = models.CharField('код', max_length=4, null=True)
+    USERNAME_FIELD = 'phone_number'
     REQUIRED_FIELDS = ['username']
 
     def __str__(self):
-        return f'{self.username} {self.phonenumber}'
+        return f'{self.username} {self.phone_number}'
 
     class Meta:
         verbose_name = 'Пользователь'
@@ -179,9 +180,3 @@ class Appointment(models.Model):
 
     def __str__(self):
         return f'{self.name} {self.salon} {self.master}'
-
-
-class Customer(models.Model):
-    phone_number = models.CharField('номер телефона', max_length=15)
-    pin = models.CharField('код', max_length=4)
-

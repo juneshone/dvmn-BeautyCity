@@ -1,10 +1,11 @@
-from django.contrib.auth import login
+from django.contrib.auth import login, authenticate
 from django.http import JsonResponse, HttpResponseServerError
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
-from .models import Pay, Customer
+from .forms import PhoneForm, PinForm
+from .models import Pay, CustomUser
 from .utils import get_code
 
 
@@ -60,28 +61,47 @@ def save_pay(request):
     return JsonResponse({'status': 'ok'})
 
 
-def send_code(request):
+def send_phone(request):
     if request.method == 'POST':
-        phone = request.POST.get('phone')
-        customer, created = Customer.objects.get_or_create(phone_number=phone)
-        if not created:
-            pin = get_code()
-            customer.pin = pin
-            customer.save()
-        pin = customer.pin
-        request.session['pin'] = pin
-        request.session['phone'] = phone
-        return JsonResponse({'pin': pin})
+        if 'phone' in request.POST:
+            form = PhoneForm(request.POST)
+            if form.is_valid():
+                phone = form.cleaned_data['phone']
+                consent = form.cleaned_data['consent']
+                print(f"Phone number: {phone}")
 
+                code = get_code()
+                customer, created = CustomUser.objects.get_or_create(phone_number=phone)
+                customer.pin = code
+                customer.save()
 
-def verify_code(request):
-    if request.method == 'POST':
-        code = request.POST.get('code')
-        phone = request.session.get('phone')
-        pin = request.session.get('pin')
-        if code == pin:
-            user = Customer.objects.get(phone_number=phone)
-            login(request, user)
-            return JsonResponse({'success': True, 'redirect_url': '/account/'})
-        else:
-            return JsonResponse({'success': False, 'error': 'Invalid code'})
+                request.session['verification_code'] = code
+                request.session['phone'] = phone
+
+                return JsonResponse({'status': 'success', 'phone': phone, 'code': code})
+            else:
+                return JsonResponse({'status': 'error', 'errors': form.errors})
+        elif 'pin' in request.POST:
+            form = PinForm(request.POST)
+            if form.is_valid():
+                pin = form.cleaned_data['pin']
+                saved_code = request.session.get('verification_code')
+                phone = request.session.get('phone')
+                print(f"Pin entered: {pin}")
+                if pin == saved_code:
+                    user = CustomUser.objects.get(phone_number=phone)
+                    print(user)
+                    if user is not None:
+                        login(request, user)
+                        print('azaza2')
+                        return JsonResponse({'status': 'success', 'redirect_url': 'account'})
+                    else:
+                        print(1)
+                return JsonResponse({'status': 'success', 'pin': pin})
+            else:
+                return JsonResponse({'status': 'error', 'errors': form.errors})
+    else:
+        phone_form = PhoneForm()
+        pin_form = PinForm()
+    return render(request, 'index.html',
+                  {'phone_form': phone_form, 'pin_form': pin_form})
