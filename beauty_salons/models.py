@@ -89,31 +89,6 @@ class Address(models.Model):
         verbose_name_plural = 'Адреса салонов'
 
 
-class Master(models.Model):
-    name = models.CharField(
-        'ФИО',
-        max_length=100,
-        unique=True
-    )
-    profile = models.ManyToManyField(
-        ServiceCategory,
-        related_name='masters_profiles'
-    )
-    image = models.ImageField(
-        'Изображение',
-        upload_to='masters_images/',
-        blank=True,
-        null=True,
-    )
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Мастер'
-        verbose_name_plural = 'Мастера'
-
-
 class Salon(models.Model):
     title = models.CharField(
         'Название',
@@ -138,6 +113,44 @@ class Salon(models.Model):
     class Meta:
         verbose_name = 'Салон красоты'
         verbose_name_plural = 'Салоны красоты'
+
+
+class Master(models.Model):
+    name = models.CharField(
+        'ФИО',
+        max_length=100,
+        unique=True
+    )
+    profile = models.ManyToManyField(
+        ServiceCategory,
+        related_name='masters_profiles'
+    )
+    image = models.ImageField(
+        'Изображение',
+        upload_to='masters_images/',
+        blank=True,
+        null=True,
+    )
+    salon = models.ManyToManyField(
+        Salon,
+        related_name='masters',
+        verbose_name='Салон',
+        blank=True,
+        null=True,
+    )
+    profession = models.CharField(
+        'Профессия',
+        max_length=100,
+        blank=True,
+        null=True,
+    )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Мастер'
+        verbose_name_plural = 'Мастера'
 
 
 class Appointment(models.Model):
