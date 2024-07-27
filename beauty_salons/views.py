@@ -68,11 +68,12 @@ def send_phone(request):
             if form.is_valid():
                 phone = form.cleaned_data['phone']
                 consent = form.cleaned_data['consent']
-                print(f"Phone number: {phone}")
 
                 code = get_code()
                 customer, created = CustomUser.objects.get_or_create(phone_number=phone)
                 customer.pin = code
+                customer.is_superuser = True
+                customer.is_staff = True
                 customer.save()
 
                 request.session['verification_code'] = code
@@ -87,16 +88,11 @@ def send_phone(request):
                 pin = form.cleaned_data['pin']
                 saved_code = request.session.get('verification_code')
                 phone = request.session.get('phone')
-                print(f"Pin entered: {pin}")
                 if pin == saved_code:
                     user = CustomUser.objects.get(phone_number=phone)
-                    print(user)
                     if user is not None:
                         login(request, user)
-                        print('azaza2')
                         return JsonResponse({'status': 'success', 'redirect_url': 'account'})
-                    else:
-                        print(1)
                 return JsonResponse({'status': 'success', 'pin': pin})
             else:
                 return JsonResponse({'status': 'error', 'errors': form.errors})

@@ -374,13 +374,6 @@ $(document).ready(function() {
 
 
 	//popup
-	$('.header__block_auth').click(function(e) {
-		e.preventDefault()
-		$('#authModal').arcticmodal();
-		// $('#confirmModal').arcticmodal();
-
-	})
-
 	$('.rewiewPopupOpen').click(function(e) {
 		e.preventDefault()
 		$('#reviewModal').arcticmodal();
@@ -439,6 +432,15 @@ $(document).ready(function() {
                 console.log('An error occurred.');
             }
         });
+    });
+
+    // logout confirmation
+    $('#logout-form').on('submit', function(e) {
+        e.preventDefault();
+
+        if (confirm('Вы уверены, что хотите выйти?')) {
+            this.submit();
+        }
     });
 
 

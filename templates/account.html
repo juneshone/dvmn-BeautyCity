@@ -123,10 +123,10 @@
 					<div class="col-md-5 ">
 						<nav>
 						<ul class="menu">
-							<li class="menu__item"><a href="#" class="menu__item_link">Мастера</a></li>
-							<li class="menu__item"><a href="#" class="menu__item_link">Услуги</a></li>
-							<li class="menu__item"><a href="#" class="menu__item_link">Отзывы</a></li>
-							<li class="menu__item"><a href="#" class="menu__item_link">Контакты</a></li>
+							<li class="menu__item"><a href="{% url 'send_phone' %}#masters" class="menu__item_link">Мастера</a></li>
+							<li class="menu__item"><a href="{% url 'send_phone' %}#services" class="menu__item_link">Услуги</a></li>
+							<li class="menu__item"><a href="{% url 'send_phone' %}#reviews" class="menu__item_link">Отзывы</a></li>
+							<li class="menu__item"><a href="{% url 'send_phone' %}#contacts" class="menu__item_link">Контакты</a></li>
 						</ul>
 					</nav>
 					</div>
@@ -154,11 +154,14 @@
 						<div class="accaunt__left">
 							<div class="accaunt__ava fic">
 								<img src="{% static 'img/avatars/1.svg' %}" alt="avatar" class="accaunt__ava_img">
-								<span class="accaunt__ava_name">Администратор</span>
+								<span class="accaunt__ava_name">Администратор ({{ user.phone_number }})</span>
 							</div>
 							<div class="accaunt__settings fic">
-								<a href="#" class="accaunt__settings_intro">Изменить профиль</a>
-								<a href="#" class="accaunt__settings_out">Выйти</a>
+									<a href="#" class="accaunt__settings_intro">Изменить профиль</a>
+									<form id="logout-form" action="{% url 'logout' %}" method="post" style="display: inline;">
+											{% csrf_token %}
+											<button type="submit" class="accaunt__settings_out">Выйти</button>
+									</form>
 							</div>
 							<nav>
 								<div class="accaunt__menu_title">МЕНЮ</div>
@@ -246,10 +249,10 @@
 						<div class="col-md-5 minMobHide">
 							<nav>
 								<ul class="menu">
-									<li class="menu__item"><a href="#" class="menu__item_link">Мастера</a></li>
-									<li class="menu__item"><a href="#" class="menu__item_link">Услуги</a></li>
-									<li class="menu__item"><a href="#" class="menu__item_link">Отзывы</a></li>
-									<li class="menu__item"><a href="#" class="menu__item_link">Контакты</a></li>
+									<li class="menu__item"><a href="{% url 'send_phone' %}#masters" class="menu__item_link">Мастера</a></li>
+									<li class="menu__item"><a href="{% url 'send_phone' %}#services" class="menu__item_link">Услуги</a></li>
+									<li class="menu__item"><a href="{% url 'send_phone' %}#reviews" class="menu__item_link">Отзывы</a></li>
+									<li class="menu__item"><a href="{% url 'send_phone' %}#contacts" class="menu__item_link">Контакты</a></li>
 								</ul>
 							</nav>
 						</div>
@@ -269,10 +272,10 @@
 							<div class="col-md-5 minMobShow">
 								<nav>
 									<ul class="menu">
-										<li class="menu__item"><a href="#" class="menu__item_link">Мастера</a></li>
-										<li class="menu__item"><a href="#" class="menu__item_link">Услуги</a></li>
-										<li class="menu__item"><a href="#" class="menu__item_link">Отзывы</a></li>
-										<li class="menu__item"><a href="#" class="menu__item_link">Контакты</a></li>
+										<li class="menu__item"><a href="{% url 'send_phone' %}#masters" class="menu__item_link">Мастера</a></li>
+										<li class="menu__item"><a href="{% url 'send_phone' %}#services" class="menu__item_link">Услуги</a></li>
+										<li class="menu__item"><a href="{% url 'send_phone' %}#reviews" class="menu__item_link">Отзывы</a></li>
+										<li class="menu__item"><a href="{% url 'send_phone' %}#contacts" class="menu__item_link">Контакты</a></li>
 									</ul>
 								</nav>
 							</div>

@@ -72,10 +72,10 @@
 					<div class="col-md-5 ">
 						<nav>
 						<ul class="menu">
-							<li class="menu__item"><a href="#" class="menu__item_link">Мастера</a></li>
-							<li class="menu__item"><a href="#" class="menu__item_link">Услуги</a></li>
-							<li class="menu__item"><a href="#" class="menu__item_link">Отзывы</a></li>
-							<li class="menu__item"><a href="#" class="menu__item_link">Контакты</a></li>
+							<li class="menu__item"><a href="#masters" class="menu__item_link">Мастера</a></li>
+							<li class="menu__item"><a href="#services" class="menu__item_link">Услуги</a></li>
+							<li class="menu__item"><a href="#reviews" class="menu__item_link">Отзывы</a></li>
+							<li class="menu__item"><a href="#contacts" class="menu__item_link">Контакты</a></li>
 						</ul>
 					</nav>
 					</div>
@@ -84,7 +84,11 @@
 						<a href="tel:+79179023800"><button class="header__block_btn">Перезвоните мне</button></a>
 						<div class="header__block_auth">
 							<img src="{% static 'img/acc.svg' %}" alt="account" class="header__account_img">
-							<span class="header__block_auth__intro">Войти</span>
+							{% if user.is_authenticated %}
+								<span class="header__block_auth__intro">Личный кабинет</span>
+							{% else %}
+								<span class="header__block_auth__intro">Войти</span>
+							{% endif %}
 						</div>
 					</div>
 					</div>
@@ -594,10 +598,10 @@
 						<div class="col-md-5 minMobHide">
 							<nav>
 								<ul class="menu">
-									<li class="menu__item"><a href="#" class="menu__item_link">Мастера</a></li>
-									<li class="menu__item"><a href="#" class="menu__item_link">Услуги</a></li>
-									<li class="menu__item"><a href="#" class="menu__item_link">Отзывы</a></li>
-									<li class="menu__item"><a href="#" class="menu__item_link">Контакты</a></li>
+									<li class="menu__item"><a href="#masters" class="menu__item_link">Мастера</a></li>
+									<li class="menu__item"><a href="#services" class="menu__item_link">Услуги</a></li>
+									<li class="menu__item"><a href="#reviews" class="menu__item_link">Отзывы</a></li>
+									<li class="menu__item"><a href="#contacts" class="menu__item_link">Контакты</a></li>
 								</ul>
 							</nav>
 						</div>
@@ -617,10 +621,10 @@
 							<div class="col-md-5 minMobShow">
 								<nav>
 									<ul class="menu">
-										<li class="menu__item"><a href="#" class="menu__item_link">Мастера</a></li>
-										<li class="menu__item"><a href="#" class="menu__item_link">Услуги</a></li>
-										<li class="menu__item"><a href="#" class="menu__item_link">Отзывы</a></li>
-										<li class="menu__item"><a href="#" class="menu__item_link">Контакты</a></li>
+										<li class="menu__item"><a href="#masters" class="menu__item_link">Мастера</a></li>
+										<li class="menu__item"><a href="#services" class="menu__item_link">Услуги</a></li>
+										<li class="menu__item"><a href="#reviews" class="menu__item_link">Отзывы</a></li>
+										<li class="menu__item"><a href="#contacts" class="menu__item_link">Контакты</a></li>
 									</ul>
 								</nav>
 							</div>
@@ -691,6 +695,21 @@
 			</div>
 	</div>
 
+	<script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const isAuthenticated = "{{ user.is_authenticated|yesno:'true,false' }}";
+            console.log('User is authenticated:', isAuthenticated);
+
+            document.querySelector('.header__block_auth').addEventListener('click', function (e) {
+                e.preventDefault();
+                if (isAuthenticated === 'true') {
+                    window.location.href = '/account';
+                } else {
+                    $('#authModal').arcticmodal();
+                }
+            });
+        });
+	</script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="{% static 'js/air-datepicker.js' %}"></script>
