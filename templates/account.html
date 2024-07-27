@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+{% load static %}
+
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -11,10 +13,10 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <!-- 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css.map">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css.map"> -->
-	<link rel="stylesheet" href="css/bootstrap-grid.min.css">
-	<link rel="stylesheet" href="css/air-datepicker.css">
-	<script src="js/air-datepicker.js"></script>
-	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="{% static 'css/bootstrap-grid.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/air-datepicker.css' %}">
+	<script src="{% static 'js/air-datepicker.js' %}"></script>
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
 <body>
 	<section id="mobMenu">
@@ -24,11 +26,11 @@
 					<div class="row">
 						<div class="col-4 col-md-3">
 							<a href="/">
-								<img src="img/Logo.svg" alt="Logo" class="logo header__logo">
+								<img src="{% static 'img/Logo.svg' %}" alt="Logo" class="logo header__logo">
 							</a>
 						</div>
 						<div class="col-3 col-md-2">
-							<img src="img/x.svg" alt="x" class="mobMenuClose">
+							<img src="{% static 'img/x.svg' %}" alt="x" class="mobMenuClose">
 						</div>
 					</div>
 				</div>
@@ -38,7 +40,7 @@
 							<nav>
 								<div class="accaunt__left">
 							<div class="accaunt__ava fic">
-								<img src="img/avatars/1.svg" alt="avatar" class="accaunt__ava_img">
+								<img src="{% static 'img/avatars/1.svg' %}" alt="avatar" class="accaunt__ava_img">
 								<span class="accaunt__ava_name">Алиса И.</span>
 							</div>
 							<div class="accaunt__settings fic">
@@ -51,33 +53,33 @@
 									<li class="accaunt__menu_item active">
 										<a href="#" class="accaunt__menu_item__link">
 											<div class="accaunt__menu_block fic">
-												<img src="img/icons/list.svg" alt="icon" class="accaunt__menu_icon">
+												<img src="{% static 'img/icons/list.svg' %}" alt="icon" class="accaunt__menu_icon">
 												<span class="accaunt__menu_item__link_intro">Мои записи</span>
-											</div>	
+											</div>
 										</a>
 									</li>
 									<li class="accaunt__menu_item">
 										<a href="#" class="accaunt__menu_item__link">
 											<div class="accaunt__menu_block fic">
-												<img src="img/icons/settings.svg" alt="icon" class="accaunt__menu_icon">
+												<img src="{% static 'img/icons/settings.svg' %}" alt="icon" class="accaunt__menu_icon">
 												<span class="accaunt__menu_item__link_intro">Настройки</span>
-											</div>	
+											</div>
 										</a>
 									</li>
 									<li class="accaunt__menu_item">
 										<a href="#" class="accaunt__menu_item__link">
 											<div class="accaunt__menu_block fic">
-												<img src="img/icons/tex.svg" alt="icon" class="accaunt__menu_icon">
+												<img src="{% static 'img/icons/tex.svg' %}" alt="icon" class="accaunt__menu_icon">
 												<span class="accaunt__menu_item__link_intro">Тех. поддержка</span>
-											</div>	
+											</div>
 										</a>
 									</li>
 									<li class="accaunt__menu_item">
 										<a href="#" class="accaunt__menu_item__link">
 											<div class="accaunt__menu_block fic">
-												<img src="img/icons/pay.svg" alt="icon" class="accaunt__menu_icon">
+												<img src="{% static 'img/icons/pay.svg' %}" alt="icon" class="accaunt__menu_icon">
 												<span class="accaunt__menu_item__link_intro">Платежи</span>
-											</div>	
+											</div>
 										</a>
 									</li>
 								</ul>
@@ -111,20 +113,20 @@
 			<div class="header">
 				<div class="row">
 					<div class="col-2 col-md-2 mob">
-						<img src="img/hamburger.svg" alt="hamburger" class="header__mobMenu">
+						<img src="{% static 'img/hamburger.svg' %}" alt="hamburger" class="header__mobMenu">
 					</div>
 					<div class="col-5 col-md-3 col-lg-2">
 						<a href="/">
-							<img src="img/Logo.svg" alt="Logo" class="logo header__logo">
+							<img src="{% static 'img/Logo.svg' %}" alt="Logo" class="logo header__logo">
 						</a>
 					</div>
 					<div class="col-md-5 ">
 						<nav>
 						<ul class="menu">
-							<li class="menu__item"><a href="#" class="menu__item_link">Мастера</a></li>
-							<li class="menu__item"><a href="#" class="menu__item_link">Услуги</a></li>
-							<li class="menu__item"><a href="#" class="menu__item_link">Отзывы</a></li>
-							<li class="menu__item"><a href="#" class="menu__item_link">Контакты</a></li>
+							<li class="menu__item"><a href="{% url 'send_phone' %}#masters" class="menu__item_link">Мастера</a></li>
+							<li class="menu__item"><a href="{% url 'send_phone' %}#services" class="menu__item_link">Услуги</a></li>
+							<li class="menu__item"><a href="{% url 'send_phone' %}#reviews" class="menu__item_link">Отзывы</a></li>
+							<li class="menu__item"><a href="{% url 'send_phone' %}#contacts" class="menu__item_link">Контакты</a></li>
 						</ul>
 					</nav>
 					</div>
@@ -132,15 +134,15 @@
 						<div class="header__block">
 						<button class="header__block_btn">Перезвоните мне</button>
 						<div class="header__block_auth">
-							<img src="img/avatars/1.svg" alt="account" class="header__account_img">
+							<img src="{% static 'img/avatars/1.svg' %}" alt="account" class="header__account_img">
 							<!-- <span class="header__block_auth__intro">Алиса И.</span> -->
 						</div>
 					</div>
 					</div>
 				</div>
-				
-				
-				
+
+
+
 			</div>
 		</div>
 	</header>
@@ -151,12 +153,15 @@
 					<div class="col-md-2 dec">
 						<div class="accaunt__left">
 							<div class="accaunt__ava fic">
-								<img src="img/avatars/1.svg" alt="avatar" class="accaunt__ava_img">
-								<span class="accaunt__ava_name">Администратор</span>
+								<img src="{% static 'img/avatars/1.svg' %}" alt="avatar" class="accaunt__ava_img">
+								<span class="accaunt__ava_name">Администратор ({{ user.phone_number }})</span>
 							</div>
 							<div class="accaunt__settings fic">
-								<a href="#" class="accaunt__settings_intro">Изменить профиль</a>
-								<a href="#" class="accaunt__settings_out">Выйти</a>
+									<a href="#" class="accaunt__settings_intro">Изменить профиль</a>
+									<form id="logout-form" action="{% url 'logout' %}" method="post" style="display: inline;">
+											{% csrf_token %}
+											<button type="submit" class="accaunt__settings_out">Выйти</button>
+									</form>
 							</div>
 							<nav>
 								<div class="accaunt__menu_title">МЕНЮ</div>
@@ -164,33 +169,33 @@
 									<li class="accaunt__menu_item active">
 										<a href="#" class="accaunt__menu_item__link">
 											<div class="accaunt__menu_block fic">
-												<img src="img/icons/list.svg" alt="icon" class="accaunt__menu_icon">
+												<img src="{% static 'img/icons/list.svg' %}" alt="icon" class="accaunt__menu_icon">
 												<span class="accaunt__menu_item__link_intro">Мои записи</span>
-											</div>	
+											</div>
 										</a>
 									</li>
 									<li class="accaunt__menu_item">
 										<a href="#" class="accaunt__menu_item__link">
 											<div class="accaunt__menu_block fic">
-												<img src="img/icons/settings.svg" alt="icon" class="accaunt__menu_icon">
+												<img src="{% static 'img/icons/settings.svg' %}" alt="icon" class="accaunt__menu_icon">
 												<span class="accaunt__menu_item__link_intro">Настройки</span>
-											</div>	
+											</div>
 										</a>
 									</li>
 									<li class="accaunt__menu_item">
 										<a href="#" class="accaunt__menu_item__link">
 											<div class="accaunt__menu_block fic">
-												<img src="img/icons/tex.svg" alt="icon" class="accaunt__menu_icon">
+												<img src="{% static 'img/icons/tex.svg' %}" alt="icon" class="accaunt__menu_icon">
 												<span class="accaunt__menu_item__link_intro">Тех. поддержка</span>
-											</div>	
+											</div>
 										</a>
 									</li>
 									<li class="accaunt__menu_item">
 										<a href="#" class="accaunt__menu_item__link">
 											<div class="accaunt__menu_block fic">
-												<img src="img/icons/pay.svg" alt="icon" class="accaunt__menu_icon">
+												<img src="{% static 'img/icons/pay.svg' %}" alt="icon" class="accaunt__menu_icon">
 												<span class="accaunt__menu_item__link_intro">Платежи</span>
-											</div>	
+											</div>
 										</a>
 									</li>
 								</ul>
@@ -204,25 +209,25 @@
 							<div class="admin__main_block">
 								<div class="admin__main_block__items">
 									<div class="admin__main_monthPrise admin__main_block__elem">
-										<div class="admin__main_monthPrise__intro">Сумма оплат за месяц</div>	
+										<div class="admin__main_monthPrise__intro">Сумма оплат за месяц</div>
 										<div class="admin__main_monthPrise__sum">628 200 рублей</div>
 									</div>
 									<div class="admin__main_block__elem">
-										<div class="admin__main_monthPrise__intro">Посещений за месяц</div>	
+										<div class="admin__main_monthPrise__intro">Посещений за месяц</div>
 										<div class="admin__main_monthPrise__sum">349</div>
 									</div>
 								</div>
 								<div class="admin__main_block__items">
 									<div class="admin__main_block__elem">
-										<div class="admin__main_monthPrise__intro">Посещений за месяц</div>	
+										<div class="admin__main_monthPrise__intro">Посещений за месяц</div>
 										<div class="admin__main_monthPrise__sum">349</div>
 									</div>
 									<div class="admin__main_block__elem">
-										<div class="admin__main_monthPrise__intro">Процент посещений</div>	
+										<div class="admin__main_monthPrise__intro">Процент посещений</div>
 										<div class="admin__main_monthPrise__circle">100%</div>
 									</div>
 									<div class="admin__main_block__elem">
-										<div class="admin__main_monthPrise__intro">Посещений за год</div>	
+										<div class="admin__main_monthPrise__intro">Посещений за год</div>
 										<div class="admin__main_monthPrise__sum">3 956</div>
 									</div>
 								</div>
@@ -232,22 +237,22 @@
 				</div>
 			</div>
 		</div>
-	</section> 
+	</section>
 	<footer id="footer">
 		<div class="container">
 			<div class="footer">
 				<div class="footer__block">
 					<div class="row">
 						<div class="col-md-3 col-lg-2">
-							<a href="/"><img src="img/Logo.svg" alt="logo" class="footer__logo"></a>
+							<a href="/"><img src="{% static 'img/Logo.svg' %}" alt="logo" class="footer__logo"></a>
 						</div>
 						<div class="col-md-5 minMobHide">
 							<nav>
 								<ul class="menu">
-									<li class="menu__item"><a href="#" class="menu__item_link">Мастера</a></li>
-									<li class="menu__item"><a href="#" class="menu__item_link">Услуги</a></li>
-									<li class="menu__item"><a href="#" class="menu__item_link">Отзывы</a></li>
-									<li class="menu__item"><a href="#" class="menu__item_link">Контакты</a></li>
+									<li class="menu__item"><a href="{% url 'send_phone' %}#masters" class="menu__item_link">Мастера</a></li>
+									<li class="menu__item"><a href="{% url 'send_phone' %}#services" class="menu__item_link">Услуги</a></li>
+									<li class="menu__item"><a href="{% url 'send_phone' %}#reviews" class="menu__item_link">Отзывы</a></li>
+									<li class="menu__item"><a href="{% url 'send_phone' %}#contacts" class="menu__item_link">Контакты</a></li>
 								</ul>
 							</nav>
 						</div>
@@ -255,9 +260,9 @@
 					<div class="footer__contact">
 						<div class="row">
 							<div class="col-md-4">
-								
+
 									<div class="footer__data">с 10:00 до 20:00  без выходных</div>
-									
+
 							</div>
 							<div class="col-md-3">
 								<a href="tel:+79179023800" class="contacts__info_tel">+7 (917) 902 38 00</a>
@@ -267,10 +272,10 @@
 							<div class="col-md-5 minMobShow">
 								<nav>
 									<ul class="menu">
-										<li class="menu__item"><a href="#" class="menu__item_link">Мастера</a></li>
-										<li class="menu__item"><a href="#" class="menu__item_link">Услуги</a></li>
-										<li class="menu__item"><a href="#" class="menu__item_link">Отзывы</a></li>
-										<li class="menu__item"><a href="#" class="menu__item_link">Контакты</a></li>
+										<li class="menu__item"><a href="{% url 'send_phone' %}#masters" class="menu__item_link">Мастера</a></li>
+										<li class="menu__item"><a href="{% url 'send_phone' %}#services" class="menu__item_link">Услуги</a></li>
+										<li class="menu__item"><a href="{% url 'send_phone' %}#reviews" class="menu__item_link">Отзывы</a></li>
+										<li class="menu__item"><a href="{% url 'send_phone' %}#contacts" class="menu__item_link">Контакты</a></li>
 									</ul>
 								</nav>
 							</div>
@@ -287,25 +292,25 @@
 							</div>
 							<div class="col-md-3 col-lg-2">
 								<div class="footer__social fic">
-									<a href=""><img src="img/waGray.svg" alt="wa" class="contacts__social_icon"></a>
-									<a href=""><img src="img/vkGray.svg" alt="vk" class="contacts__social_icon"></a>
-									<a href=""><img src="img/tgGray.svg" alt="tg" class="contacts__social_icon"></a>
-									<a href=""><img src="img/instaGray.svg" alt="insta" class="contacts__social_icon"></a>
+									<a href=""><img src="{% static 'img/waGray.svg' %}" alt="wa" class="contacts__social_icon"></a>
+									<a href=""><img src="{% static 'img/vkGray.svg' %}" alt="vk" class="contacts__social_icon"></a>
+									<a href=""><img src="{% static 'img/tgGray.svg' %}" alt="tg" class="contacts__social_icon"></a>
+									<a href=""><img src="{% static 'img/instaGray.svg' %}" alt="insta" class="contacts__social_icon"></a>
 								</div>
 							</div>
 						</div>
-						
-						
-						
+
+
+
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
 	</footer>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	
-	<script src="js/main.js"></script>
+
+	<script src="{% static 'js/main.js' %}"></script>
 </body>
 </html>
