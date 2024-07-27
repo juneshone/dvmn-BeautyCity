@@ -26,12 +26,6 @@
 				</div>
 				
 				<form action="#" class="service__form">
-					<!-- <select name="selectSalon" id="" class="service__form_select">
-						<option value="" selected>(Выберите салон)</option>
-						<option value="salon1" >Салон 1</option>
-						<option value="salon2" >Салон 2</option>
-						<option value="salon3" >Салон 3</option>
-					</select> -->
 					<div class="service__form_block service__salons">
 						<button class="accordion">(Выберите салон)</button>
 						<div class="panel">
@@ -65,19 +59,7 @@
 					<div class="service__form_block service__masters">
 						<button class="accordion">(Выберите мастера)</button>
 						<div class="panel">
-							{% for master in masters %}
-							    <div class="accordion__block fic">
-									<div class="accordion__block_elems fic">
-									    <img src="{{master.image.url}}" alt="avatar" class="accordion__block_img">
-										<div class="accordion__block_master">{{ master.name }}</div>
-										<div class="accordion__block_prof">{{ master.profession  }}</div>
-									</div>
-								</div>
-							{% endfor %}
 						</div>
-
-
-
 					</div>
 
 				</form>
@@ -137,4 +119,31 @@
 {% endblock %}
 {% block script %}
     <script src="{% static 'js/main.js' %}"></script>
+    <script>
+		$(document).on('click', '.accordion__block', function(e) {
+		    let thisName,thisAddress;
+
+		    thisName = $(this).find('> .accordion__block_intro').text()
+		    thisAddress = $(this).find('> .accordion__block_address').text()
+			{% for salon in salons %}
+				if(thisName === '{{ salon.title }}') {
+					$(".service__masters > .panel").html(`
+						{% for master in salon.masters.all %}
+						    <div class="accordion__block fic">
+							    <div class="accordion__block_elems fic">
+								    <img src="{{master.image.url}}" alt="avatar" class="accordion__block_img">
+									 <div class="accordion__block_master">{{ master.name }}</div>
+									 <div class="accordion__block_prof">{{ master.profession  }}</div>
+								</div>
+							</div>
+						{% endfor %}
+					`);
+				}
+			{% endfor %}
+		    $(this).parent().parent().find('> button.active').addClass('selected').text(thisName + '  ' +thisAddress)
+			setTimeout(() => {
+				$(this).parent().parent().find('> button.active').click()
+			}, 200)
+		})
+    </script>
 {% endblock %}

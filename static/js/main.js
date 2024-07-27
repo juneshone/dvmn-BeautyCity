@@ -143,46 +143,6 @@ $(document).ready(function() {
 	}
 
 
-	$(document).on('click', '.accordion__block', function(e) {
-		let thisName,thisAddress;
-
-		thisName = $(this).find('> .accordion__block_intro').text()
-		thisAddress = $(this).find('> .accordion__block_address').text()
-
-
-		if(thisName === 'BeautyCity Пушкинская') {
-			$('.service__masters > .panel1').html(`
-
-			`)
-			// $('.service__masters div[data-masters="Pushkinskaya"]').addClass('vib')
-		}
-		console.log(thisName)
-		if(thisName === 'BeautyCity Ленина') {
-			$('.service__masters > .panel2').html(`
-
-			`)
-		}
-
-		if(thisName === 'BeautyCity Красная') {
-			$('.service__masters > .panel3').html(`
-
-			`)
-
-		}
-
-		$(this).parent().parent().find('> button.active').addClass('selected').text(thisName + '  ' +thisAddress)
-		setTimeout(() => {
-			$(this).parent().parent().find('> button.active').click()
-		}, 200)
-		
-		// $(this).parent().addClass('hide')
-
-		// console.log($(this).parent().parent().find('.panel').hasClass('selected'))
-		
-		// $(this).parent().parent().find('.panel').addClass('selected')
-	})
-
-
 	$('.accordion__block_item').click(function(e) {
 		let thisName,thisAddress;
 		thisName = $(this).find('> .accordion__block_item_intro').text()
