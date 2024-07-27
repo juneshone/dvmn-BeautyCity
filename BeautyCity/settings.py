@@ -32,10 +32,6 @@ SECRET_KEY = env.str("SECRET_KEY")
 DEBUG = env.bool("DEBUG_VALUE", False)
 
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", "localhost")
-if env.list("NGINX_DOMAINS"):
-    CSRF_TRUSTED_ORIGINS = env.list("NGINX_DOMAINS")
-    USE_X_FORWARDED_HOST = True
-    USE_X_FORWARDED_PORT = True
 
 # Application definition
 
