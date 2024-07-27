@@ -25,7 +25,6 @@ def service(request):
         'masters': masters,
     }
     return render(request, 'service.html', context)
-    return render(request, 'service.html')
 
 
 def serviceFinally(request):

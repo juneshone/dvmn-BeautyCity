@@ -47,7 +47,7 @@
 						<button class="accordion">(Выберите услугу)</button>
 						<div class="panel">
 							{% for category in categories %}
-								<button class="accordion">Парикмахерские услуги</button>
+								<button class="accordion">{{ category }}</button>
 								<div class="panel">
 									{% for service in category.services.all %}
 									<!-- <div class="accordion__block_intro">Макияж</div> -->
