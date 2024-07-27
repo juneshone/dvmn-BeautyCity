@@ -69,10 +69,10 @@
 					<div class="col-md-5 ">
 						<nav>
 						<ul class="menu">
-							<li class="menu__item"><a href="#" class="menu__item_link">Мастера</a></li>
-							<li class="menu__item"><a href="{% url 'service' %}" class="menu__item_link">Услуги</a></li>
-							<li class="menu__item"><a href="#" class="menu__item_link">Отзывы</a></li>
-							<li class="menu__item"><a href="#" class="menu__item_link">Контакты</a></li>
+							<li class="menu__item"><a href="{% url 'index' %}#masters" class="menu__item_link">Мастера</a></li>
+							<li class="menu__item"><a href="{% url 'index' %}#services" class="menu__item_link">Услуги</a></li>
+							<li class="menu__item"><a href="{% url 'index' %}#reviews" class="menu__item_link">Отзывы</a></li>
+							<li class="menu__item"><a href="{% url 'index' %}#contacts" class="menu__item_link">Контакты</a></li>
 						</ul>
 					</nav>
 					</div>
@@ -81,7 +81,11 @@
 						<a href="tel:+79179023800"><button class="header__block_btn">Перезвоните мне</button></a>
 						<div class="header__block_auth">
 							<img src="{% static 'img/acc.svg' %}" alt="account" class="header__account_img">
-							<span class="header__block_auth__intro">Войти</span>
+							{% if user.is_authenticated %}
+								<span class="header__block_auth__intro">Личный кабинет</span>
+							{% else %}
+								<span class="header__block_auth__intro">Войти</span>
+							{% endif %}
 						</div>
 					</div>
 					</div>
@@ -105,10 +109,10 @@
 						<div class="col-md-5 minMobHide">
 							<nav>
 								<ul class="menu">
-									<li class="menu__item"><a href="#" class="menu__item_link">Мастера</a></li>
-									<li class="menu__item"><a href="{% url 'service' %}" class="menu__item_link">Услуги</a></li>
-									<li class="menu__item"><a href="#" class="menu__item_link">Отзывы</a></li>
-									<li class="menu__item"><a href="#" class="menu__item_link">Контакты</a></li>
+									<li class="menu__item"><a href="{% url 'index' %}#masters" class="menu__item_link">Мастера</a></li>
+							<li class="menu__item"><a href="{% url 'index' %}#services" class="menu__item_link">Услуги</a></li>
+							<li class="menu__item"><a href="{% url 'index' %}#reviews" class="menu__item_link">Отзывы</a></li>
+							<li class="menu__item"><a href="{% url 'index' %}#contacts" class="menu__item_link">Контакты</a></li>
 								</ul>
 							</nav>
 						</div>
@@ -128,10 +132,10 @@
 							<div class="col-md-5 minMobShow">
 								<nav>
 									<ul class="menu">
-										<li class="menu__item"><a href="#" class="menu__item_link">Мастера</a></li>
-										<li class="menu__item"><a href="{% url 'service' %}" class="menu__item_link">Услуги</a></li>
-										<li class="menu__item"><a href="#" class="menu__item_link">Отзывы</a></li>
-										<li class="menu__item"><a href="#" class="menu__item_link">Контакты</a></li>
+										<li class="menu__item"><a href="{% url 'index' %}#masters" class="menu__item_link">Мастера</a></li>
+										<li class="menu__item"><a href="{% url 'index' %}#services" class="menu__item_link">Услуги</a></li>
+										<li class="menu__item"><a href="{% url 'index' %}#reviews" class="menu__item_link">Отзывы</a></li>
+										<li class="menu__item"><a href="{% url 'index' %}#contacts" class="menu__item_link">Контакты</a></li>
 									</ul>
 								</nav>
 							</div>
@@ -164,8 +168,57 @@
 			</div>
 		</div>
 	</footer>
-	{% block contact %}
-	{% endblock %}
+	<div style="display: none;">
+    <div class="box-modal authPopup popup" id="authModal">
+        <div class="box-modal_close arcticmodal-close"><img src="{% static 'img/x.svg' %}" alt="x"></div>
+        <div class="popup__title authPopup__title">Войти по коду</div>
+        <p class="popup__text authPopup__text">Введите свой номер телефона, мы вышлем на него код</p>
+        <form class="authPopup__form" method="post">
+            {% csrf_token %}
+            <div class="contacts__form_inputBlock">
+                {{ phone_form.phone }}
+            </div>
+            <div class="contacts__form_checkboxBlock fic">
+                {{ phone_form.consent }}
+                <span class="contacts__form_checkboxBlock__intro">Я согласен(а) с политикой конфиденциальности</span>
+            </div>
+            <button type="submit" class="popup__btn authPopup__btn">Отправить</button>
+        </form>
+    </div>
+	</div>
+	<div style="display: none;">
+			<div class="box-modal confirmPopup popup" id="confirmModal">
+					<div class="box-modal_close arcticmodal-close"><img src="{% static 'img/x.svg' %}" alt="x"></div>
+					<div class="popup__title confirmPopup__title">Подтвердите номер</div>
+					<p class="popup__text confirmPopup__text">Введите код, полученный по SMS на номер <span id="confirmPhoneNumber">+7 (928) 164 48 60</span></p>
+					<form method="post">
+							{% csrf_token %}
+							<div class="confirmPopup__number">
+									{{ pin_form.pin }}
+							</div>
+							<button type="submit" class="popup__btn authPopup__btn">Отправить</button>
+					</form>
+					<div class="confirmPopup__sms">Если SMS не пришло вы можете <a href="#" class="popup__link">запросить код повторно</a></div>
+					<div class="confirmPopup__changeNumber">
+							<a href="#" class="confirmPopup__link popup__link">Изменить номер телефона</a>
+					</div>
+			</div>
+	</div>
+	<script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const isAuthenticated = "{{ user.is_authenticated|yesno:'true,false' }}";
+            console.log('User is authenticated:', isAuthenticated);
+
+            document.querySelector('.header__block_auth').addEventListener('click', function (e) {
+                e.preventDefault();
+                if (isAuthenticated === 'true') {
+                    window.location.href = '/account';
+                } else {
+                    $('#authModal').arcticmodal();
+                }
+            });
+        });
+	</script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 

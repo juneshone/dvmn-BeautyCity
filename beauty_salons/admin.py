@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from .models import Pay, Salon, Master, Service, ServiceCategory, Appointment, Address, CustomUser
+from .models import Pay, Salon, Master, Service, ServiceCategory, Appointment, \
+    Address, CustomUser
 
 
 @admin.register(Pay)
@@ -40,8 +41,4 @@ class AddressAdmin(admin.ModelAdmin):
 
 @admin.register(CustomUser)
 class CustomUserAdmin(admin.ModelAdmin):
-    list_display = ('phonenumber',)
-
-
-
-# Register your models here.
+    list_display = ('phone_number',)
