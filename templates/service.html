@@ -25,14 +25,14 @@
 					<button class="service__btn btn">Запись по телефону</button>
 				</div>
 				
-				<form action="#" class="service__form">
-					<div class="service__form_block service__salons">
+				<form class="service__form">
+					<div class="service__form_block">
 						<button class="accordion">(Выберите салон)</button>
 						<div class="panel">
 							{% for salon in salons %}
-								<div class="accordion__block fic">
+								<div class="accordion__block accordion__block_salon fic">
 									<div class="accordion__block_intro">{{ salon.title }}</div>
-									<div class="accordion__block_address">г.{{ salon.address.city }}, ул.{{ salon.address.street }}, д.{{ salon.address.house }}</div>
+									<div class="accordion__block_address">г.{{ salon.address.city }}, {{ salon.address.street }}, {{ salon.address.house }}</div>
 								</div>
 							{% endfor %}
 						</div>
@@ -108,20 +108,29 @@
 				<div class="time__btns">
 					<div class="row">
 						<div class="col-md-12">
-							<button  class="time__btns_next">Далее</button>
-							<button  class="time__btns_home">На главную</button>
+							<button  id="next_page" class="time__btns_next">Далее</button>
+							<a href="{% url 'index' %}"><button class="time__btns_home">На главную</button></a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
+    <form action="{% url 'serviceFinally' %}" method="POST" enctype="multipart/form-data" id="service_selection">
+		{% csrf_token %}
+		<input name="salon_choice" id="salon_choice" type="hidden" />
+		<input name="service_choice" id="service_choice" type="hidden" />
+		<input name="master_choice" id="master_choice" type="hidden" />
+		<input name="address_choice" id="address_choice" type="hidden" />
+		<input name="price_choice" id="price_choice" type="hidden" />
+	</form>
+
 {% endblock %}
 {% block script %}
     <script src="{% static 'js/main.js' %}"></script>
     <script>
-		$(document).on('click', '.accordion__block', function(e) {
-		    let thisName,thisAddress;
+        let thisName, thisAddress, masterName;
+        $(document).on('click', '.accordion__block', function(e) {
 
 		    thisName = $(this).find('> .accordion__block_intro').text()
 		    thisAddress = $(this).find('> .accordion__block_address').text()
@@ -131,7 +140,7 @@
 						{% for master in salon.masters.all %}
 						    <div class="accordion__block fic">
 							    <div class="accordion__block_elems fic">
-								    <img src="{{master.image.url}}" alt="avatar" class="accordion__block_img">
+								     <img src="{{master.image.url}}" alt="avatar" class="accordion__block_img">
 									 <div class="accordion__block_master">{{ master.name }}</div>
 									 <div class="accordion__block_prof">{{ master.profession  }}</div>
 								</div>
@@ -144,6 +153,47 @@
 			setTimeout(() => {
 				$(this).parent().parent().find('> button.active').click()
 			}, 200)
+			masterName = $(this).find('.accordion__block_master').text()
+			$(this).closest('.service__form_block').find('> button.active').addClass('selected').text(masterName)
+			setTimeout(() => {
+				$(this).closest('.service__form_block').find('> button.active').click()
+			}, 200)
 		})
+
+        let salonName, salonAddress;
+		$(document).on('click', '.accordion__block_salon', function(e) {
+			salonName = $(this).find('> .accordion__block_intro').text()
+			salonAddress = $(this).find('> .accordion__block_address').text()
+			$(this).closest('.service__form_block').find('> button.active').addClass('selected').text(salonName + '  ' + salonAddress)
+			setTimeout(() => {
+				$(this).closest('.service__form_block').find('> button.active').click()
+			}, 200)
+
+		})
+
+        let serviceName, servicePrice;
+		$('.accordion__block_item').click(function(e) {
+			serviceName = $(this).find('> .accordion__block_item_intro').text()
+			servicePrice = $(this).find('> .accordion__block_item_address').text().replace(' ₽', '')
+			$(this).closest('.service__form_block').find('> button.active').addClass('selected').text(serviceName + '  ' +servicePrice)
+			setTimeout(() => {
+				$(this).closest('.service__form_block').find('> button.active').click()
+			}, 200)
+		})
+
+		$(document).on('click', '.servicePage', function() {
+			if($('.time__items .time__elems_elem .time__elems_btn').hasClass('active') && $('.service__form_block > button').hasClass('selected')) {
+				$('.time__btns_next').addClass('active')
+			}
+		})
+
+		document.getElementById('next_page').addEventListener('click', function() {
+			document.getElementById('salon_choice').value = salonName;
+			document.getElementById('service_choice').value = serviceName;
+            document.getElementById('master_choice').value = masterName;
+            document.getElementById('address_choice').value = salonAddress;
+            document.getElementById('price_choice').value = servicePrice;
+			document.getElementById('service_selection').submit();
+		});
     </script>
 {% endblock %}

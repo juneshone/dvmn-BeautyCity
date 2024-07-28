@@ -29,19 +29,20 @@
 								<div class="serviceFinally__form_header fic">
 									<span class="serviceFinally__form_header__number">Запись №32985</span>
 									<div class="serviceFinally__form_header__item fic">
-										<div class="serviceFinally__form_header__service">BeautyCity Пушкинская</div>
-										<div class="serviceFinally__form_header__address">ул. Пушкинская, д. 78А</div>
+										<div class="serviceFinally__form_header__service">{{ salon_choice }}</div>
+										<div class="serviceFinally__form_header__address">{{ address_choice }}</div>
 									</div>
 								</div>
 								<div class="serviceFinally__form_content">
 									<div class="serviceFinally__form_content__block fic">
-										<div class="serviceFinally__form_content__title">Дневной макияж</div>
-										<div class="serviceFinally__form_content__price">750 ₽</div>
+										<div class="serviceFinally__form_content__title">{{ service_choice }}</div>
+										<div class="serviceFinally__form_content__price">{{ price_choice}} ₽</div>
 									</div>
 									<div class="serviceFinally__form_content__block fic">
 										<div class="serviceFinally__form_content__items fic">
-										  	<img src="{% static 'img/masters/avatar/vizajist1.svg' %}" alt="avatar" class="accordion__block_img">
-										  	<div class="accordion__block_master">Елена Грибнова</div>
+										  	<img src="{{master_choice.image.url}}" alt="avatar" class="accordion__block_img">
+										  	<div class="accordion__block_master">{{ master_choice}}</div>
+											<div class="accordion__block_prof">{{ master_choice.profession}}</div>
 									    </div>
 									    <div class="serviceFinally__form_content__item fic">
 											<div class="serviceFinally__form_content__time">16:30</div>
