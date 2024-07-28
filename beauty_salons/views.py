@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from django.utils import timezone
+from django.shortcuts import get_object_or_404
 
 import json
 
@@ -28,7 +29,20 @@ def service(request):
 
 
 def serviceFinally(request):
-    return render(request, 'serviceFinally.html')
+    context = {'appointment': get_object_or_404(Appointment, id=1)}
+    if request.method == "POST":
+        r = request.POST
+        print(request.POST)
+        context['salon_choice'] = r.get('salon_choice')
+        context['service_choice'] = r.get('service_choice')
+        master = get_object_or_404(Master, name=r.get('master_choice'))
+        context['master_choice'] = master
+        context['address_choice'] = r.get('address_choice')
+        context['price_choice'] = r.get('price_choice')
+        context['time_choice'] = r.get('time_choice')
+        client = CustomUser.objects.get(id=3)
+
+        return render(request, 'serviceFinally.html', context=context)
 
 
 @login_required

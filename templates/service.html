@@ -123,6 +123,7 @@
 		<input name="master_choice" id="master_choice" type="hidden" />
 		<input name="address_choice" id="address_choice" type="hidden" />
 		<input name="price_choice" id="price_choice" type="hidden" />
+		<input name="time_choice" id="time_choice" type="hidden" />
 	</form>
 
 {% endblock %}
@@ -187,12 +188,21 @@
 			}
 		})
 
+        let timeService;
+        $('.time__items .time__elems_elem .time__elems_btn').click(function(e) {
+			e.preventDefault()
+			$('.time__elems_btn').removeClass('active')
+			$(this).addClass('active');
+			timeService = $(this).data('time');
+		})
+
 		document.getElementById('next_page').addEventListener('click', function() {
 			document.getElementById('salon_choice').value = salonName;
 			document.getElementById('service_choice').value = serviceName;
             document.getElementById('master_choice').value = masterName;
             document.getElementById('address_choice').value = salonAddress;
             document.getElementById('price_choice').value = servicePrice;
+            document.getElementById('time_choice').value = timeService;
 			document.getElementById('service_selection').submit();
 		});
     </script>
