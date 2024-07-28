@@ -30,6 +30,7 @@ urlpatterns = [
     path('', views.send_phone, name='index'),
     path('account/', views.account, name='account'),
     path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
+    path('appointment/', views.appointment, name='appointment'),
 ]
 
 #

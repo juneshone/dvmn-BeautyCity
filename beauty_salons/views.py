@@ -1,4 +1,6 @@
 from django.contrib.auth import login
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import JsonResponse, HttpResponse, HttpResponseServerError
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponseServerError
 from django.shortcuts import render
@@ -29,7 +31,34 @@ def service(request):
 
 
 def serviceFinally(request):
-    return render(request, 'serviceFinally.html')
+    context = {'appointment': get_object_or_404(Appointment, id=1)}
+    if request.method == "POST":
+        r = request.POST
+        print(request.POST)
+        context['salon_choice'] = r.get('salon_choice')
+        context['service_choice'] = r.get('service_choice')
+        master = get_object_or_404(Master, name=r.get('master_choice'))
+        context['master_choice'] = master
+        context['address_choice'] = r.get('address_choice')
+        context['price_choice'] = r.get('price_choice')
+        context['time_choice'] = r.get('time_choice')
+        context['date_choice'] = r.get('date_choice')
+
+        return render(request, 'serviceFinally.html', context=context)
+
+
+def appointment(request):
+    if request.method == "POST":
+        r = request.POST
+        Appointment.objects.create(
+            name=get_object_or_404(Service, name=r.get('service_choice')),
+            salon=get_object_or_404(Salon, title=r.get('salon_choice')),
+            master=get_object_or_404(Master, name=r.get('master_choice')),
+            client=get_object_or_404(CustomUser, phonenumber=request.user.phonenumber),
+            date=r.get('date_choice'),
+            time=r.get('time_choice'),
+        )
+    return redirect('notes')
 
 
 @login_required

@@ -24,31 +24,39 @@
 						<div class="service__block">
 							<h1 class="service__title">Запись на услугу</h1>
 						</div>
-						<form action="#" class="serviceFinally__form">
+						<form action="{% url 'appointment' %}" class="serviceFinally__form" method="POST" enctype="multipart/form-data">
 							<div class="serviceFinally__form_block">
 								<div class="serviceFinally__form_header fic">
 									<span class="serviceFinally__form_header__number">Запись №32985</span>
 									<div class="serviceFinally__form_header__item fic">
-										<div class="serviceFinally__form_header__service">BeautyCity Пушкинская</div>
-										<div class="serviceFinally__form_header__address">ул. Пушкинская, д. 78А</div>
+										<div class="serviceFinally__form_header__service">{{ salon_choice }}</div>
+										<div class="serviceFinally__form_header__address">{{ address_choice }}</div>
 									</div>
 								</div>
 								<div class="serviceFinally__form_content">
 									<div class="serviceFinally__form_content__block fic">
-										<div class="serviceFinally__form_content__title">Дневной макияж</div>
-										<div class="serviceFinally__form_content__price">750 ₽</div>
+										<div class="serviceFinally__form_content__title">{{ service_choice }}</div>
+										<div class="serviceFinally__form_content__price">{{ price_choice }} ₽</div>
 									</div>
 									<div class="serviceFinally__form_content__block fic">
 										<div class="serviceFinally__form_content__items fic">
-										  	<img src="{% static 'img/masters/avatar/vizajist1.svg' %}" alt="avatar" class="accordion__block_img">
-										  	<div class="accordion__block_master">Елена Грибнова</div>
+										  	<img src="{{master_choice.image.url}}" alt="avatar" class="accordion__block_img">
+										  	<div class="accordion__block_master">{{ master_choice }}</div>
+											<div class="accordion__block_prof">{{ master_choice.profession }}</div>
 									    </div>
 									    <div class="serviceFinally__form_content__item fic">
-											<div class="serviceFinally__form_content__time">16:30</div>
-											<div class="serviceFinally__form_content__date">18 ноября</div>
+											<div class="serviceFinally__form_content__time">{{ time_choice }}</div>
+											<div class="serviceFinally__form_content__date">{{ date_choice }}</div>
 										</div>
 									</div>
-									
+									{% csrf_token %}
+									<input name="salon_choice" id="salon_choice" type="hidden" value="{{ salon_choice }}" />
+									<input name="service_choice" id="service_choice" type="hidden" value="{{ service_choice }}" />
+									<input name="master_choice" id="master_choice" type="hidden" value="{{ master_choice }}" />
+									<input name="address_choice" id="address_choice" type="hidden" value="{{ address_choice }}" />
+									<input name="price_choice" id="price_choice" type="hidden" value="{{ price_choice }}" />
+									<input name="time_choice" id="time_choice" type="hidden" value="{{ time_choice }}" />
+									<input name="date_choice" id="date_choice" type="hidden" value="{{ date_choice }}" />
 								</div>
 							</div>
 							<div class="serviceFinally__form_itesm">
@@ -65,7 +73,7 @@
 									<span class="contacts__form_checkboxBlock__intro">Я согласен(а) с политикой конфидециоальности</span>
 								</div>
 								<button type="submit" class="serviceFinallys__form_btn">Записаться</button>
-								<button type="submit" class="serviceFinallys__form_back">Назад</button>
+								<a href="{% url 'service' %}"><button class="serviceFinallys__form_back">Назад</button></a>
 							</div>
 						</form>	
 					</div>
