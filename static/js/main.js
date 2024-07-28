@@ -418,13 +418,17 @@ $(document).ready(function() {
         var form = $(this);
         $.ajax({
             type: 'POST',
-            url: '',
+            url: '', // Your endpoint here
             data: form.serialize(),
             success: function(response) {
                 if (response.status === 'success') {
-                    window.location.href = response.redirect_url;
+                    if (response.redirect_url) {
+                        window.location.href = response.redirect_url;
+                    } else {
+                        alert('PIN is incorrect.');
+                    }
                 } else {
-                    // Handle errors (optional)
+                    alert('PIN is incorrect.');
                     console.log(response.errors);
                 }
             },

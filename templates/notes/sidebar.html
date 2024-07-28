@@ -7,11 +7,14 @@
       {% else %}
       <img src="{% static 'img/masters/avatar/all.svg' %}" alt="avatar" class="accaunt__ava_img">
       {% endif %}
-      <span class="accaunt__ava_name">{{ request.user.first_name }} {{ request.user.last_name|first }}</span>
+      <span class="accaunt__ava_name">Администратор ({{ user.phone_number }})</span>
     </div>
     <div class="accaunt__settings fic">
       <a href="#" class="accaunt__settings_intro">Изменить профиль</a>
-      <a href="#" class="accaunt__settings_out">Выйти</a>
+      <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: inline;">
+        {% csrf_token %}
+        <button type="submit" class="accaunt__settings_out">Выйти</button>
+      </form>
     </div>
     <nav>
       <div class="accaunt__menu_title">МЕНЮ</div>

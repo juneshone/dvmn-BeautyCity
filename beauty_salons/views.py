@@ -97,7 +97,7 @@ def send_phone(request):
                 consent = form.cleaned_data['consent']
 
                 code = get_code()
-                customer, created = CustomUser.objects.get_or_create(phone_number=phone)
+                customer, created = CustomUser.objects.get_or_create(phone_number=phone, username=phone)
                 customer.pin = code
                 customer.is_superuser = True
                 customer.is_staff = True

@@ -20,7 +20,11 @@
 					<div class="col-md-2 dec">
 						<div class="accaunt__left">
 							<div class="accaunt__ava fic">
-								<img src="{% static 'img/avatars/1.svg' %}" alt="avatar" class="accaunt__ava_img">
+								{% if user.image %}
+									<img src="{{ request.user.image.url }}" alt="avatar" class="accaunt__ava_img">
+								{% else %}
+									<img src="{% static 'img/masters/avatar/all.svg' %}" alt="avatar" class="accaunt__ava_img">
+								{% endif %}
 								<span class="accaunt__ava_name">Администратор ({{ user.phone_number }})</span>
 							</div>
 							<div class="accaunt__settings fic">
@@ -34,7 +38,7 @@
 								<div class="accaunt__menu_title">МЕНЮ</div>
 								<ul class="accaunt__menu">
 									<li class="accaunt__menu_item active">
-										<a href="#" class="accaunt__menu_item__link">
+										<a href="{% url 'notes' %}" class="accaunt__menu_item__link">
 											<div class="accaunt__menu_block fic">
 												<img src="{% static 'img/icons/list.svg' %}" alt="icon" class="accaunt__menu_icon">
 												<span class="accaunt__menu_item__link_intro">Мои записи</span>

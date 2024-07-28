@@ -24,6 +24,7 @@ class PinForm(forms.Form):
         widget=forms.TextInput(attrs={
             'class': 'tipsPopup__form_inputNum popup__input',
             'placeholder': '9999',
-            'required': 'required'
+            'required': 'required',
+            'style': 'width: 200px; height: 50px;'
         })
     )
