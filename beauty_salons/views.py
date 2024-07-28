@@ -51,10 +51,9 @@ def appointment(request):
             name=get_object_or_404(Service, name=r.get('service_choice')),
             salon=get_object_or_404(Salon, title=r.get('salon_choice')),
             master=get_object_or_404(Master, name=r.get('master_choice')),
-            client=CustomUser.objects.get(id=3),
+            client=get_object_or_404(CustomUser, phonenumber=request.user.phonenumber),
             date=r.get('date_choice'),
             time=r.get('time_choice'),
-            status='Не оплаченный',
         )
     return redirect('notes')
 
