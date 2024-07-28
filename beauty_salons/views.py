@@ -40,6 +40,7 @@ def serviceFinally(request):
         context['address_choice'] = r.get('address_choice')
         context['price_choice'] = r.get('price_choice')
         context['time_choice'] = r.get('time_choice')
+        context['date_choice'] = r.get('date_choice')
         client = CustomUser.objects.get(id=3)
 
         return render(request, 'serviceFinally.html', context=context)

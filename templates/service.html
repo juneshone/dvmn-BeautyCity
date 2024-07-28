@@ -124,6 +124,7 @@
 		<input name="address_choice" id="address_choice" type="hidden" />
 		<input name="price_choice" id="price_choice" type="hidden" />
 		<input name="time_choice" id="time_choice" type="hidden" />
+		<input name="date_choice" id="date_choice"  type="hidden" />
 	</form>
 
 {% endblock %}
@@ -196,6 +197,16 @@
 			timeService = $(this).data('time');
 		})
 
+        let year, month, date;
+		new AirDatepicker('#datepickerHere')
+		$('.air-datepicker-cell').click(function(e) {
+			date = $(this).data('date');
+			month = $(this).data('month');
+			year = $(this).data('year');
+
+		})
+
+
 		document.getElementById('next_page').addEventListener('click', function() {
 			document.getElementById('salon_choice').value = salonName;
 			document.getElementById('service_choice').value = serviceName;
@@ -203,6 +214,7 @@
             document.getElementById('address_choice').value = salonAddress;
             document.getElementById('price_choice').value = servicePrice;
             document.getElementById('time_choice').value = timeService;
+            document.getElementById('date_choice').value = date + '-' + month + '-' + year;
 			document.getElementById('service_selection').submit();
 		});
     </script>
