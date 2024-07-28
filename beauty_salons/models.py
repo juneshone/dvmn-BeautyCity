@@ -135,8 +135,6 @@ class Master(models.Model):
         Salon,
         related_name='masters',
         verbose_name='Салон',
-        blank=True,
-        null=True,
     )
     profession = models.CharField(
         'Профессия',

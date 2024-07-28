@@ -1,10 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse, HttpResponse, HttpResponseServerError
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from django.utils import timezone
-from django.shortcuts import get_object_or_404
 
 import json
 
@@ -41,9 +40,23 @@ def serviceFinally(request):
         context['price_choice'] = r.get('price_choice')
         context['time_choice'] = r.get('time_choice')
         context['date_choice'] = r.get('date_choice')
-        client = CustomUser.objects.get(id=3)
 
         return render(request, 'serviceFinally.html', context=context)
+
+
+def appointment(request):
+    if request.method == "POST":
+        r = request.POST
+        Appointment.objects.create(
+            name=get_object_or_404(Service, name=r.get('service_choice')),
+            salon=get_object_or_404(Salon, title=r.get('salon_choice')),
+            master=get_object_or_404(Master, name=r.get('master_choice')),
+            client=CustomUser.objects.get(id=3),
+            date=r.get('date_choice'),
+            time=r.get('time_choice'),
+            status='Не оплаченный',
+        )
+    return redirect('notes')
 
 
 @login_required
