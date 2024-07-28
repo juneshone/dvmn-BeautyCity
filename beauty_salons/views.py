@@ -1,15 +1,14 @@
 from django.contrib.auth import login
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import JsonResponse, HttpResponse, HttpResponseServerError
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponseServerError
+from django.shortcuts import redirect, get_object_or_404
 from django.shortcuts import render
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
 from .forms import PhoneForm, PinForm
-from .models import Pay, CustomUser
+from .models import Pay, CustomUser, Service
 from .models import Salon, Master, ServiceCategory, Appointment
 from .utils import get_code
 
@@ -54,7 +53,7 @@ def appointment(request):
             name=get_object_or_404(Service, name=r.get('service_choice')),
             salon=get_object_or_404(Salon, title=r.get('salon_choice')),
             master=get_object_or_404(Master, name=r.get('master_choice')),
-            client=get_object_or_404(CustomUser, phonenumber=request.user.phonenumber),
+            client=get_object_or_404(CustomUser, phone_number=request.user.phone_number),
             date=r.get('date_choice'),
             time=r.get('time_choice'),
         )
