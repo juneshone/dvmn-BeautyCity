@@ -85,18 +85,20 @@ def serviceFinally(request):
 
 def appointment(request):
     if request.method == "POST":
-        print(request.POST)
         if request.user.is_authenticated:
-            phone_number = request.user.phone_number
+            customer = request.user
         else:
             phone_number = request.POST.get('phone_number')
-
+            # Если пользователь не зарегистрирован, то создаем его
+            customer, created = CustomUser.objects.get_or_create(phone_number=phone_number,
+                                                                 username=phone_number)
+            login(request, customer)
         r = request.POST
         Appointment.objects.create(
             name=get_object_or_404(Service, name=r.get('service_choice')),
             salon=get_object_or_404(Salon, title=r.get('salon_choice')),
             master=get_object_or_404(Master, name=r.get('master_choice')),
-            client=get_object_or_404(CustomUser, phone_number=request.user.phone_number),
+            client=customer,
             date=r.get('date_choice'),
             time=r.get('time_choice'),
         )
@@ -108,7 +110,7 @@ def account(request):
     return render(request, 'account.html')
 
 
-# @login_required
+@login_required
 def notes(request):
     """
     Записи
