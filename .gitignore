@@ -3,6 +3,10 @@
 # Media File
 media/
 media
+# static
+static/
+static
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
