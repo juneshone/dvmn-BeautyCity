@@ -4,8 +4,8 @@
 media/
 media
 # static
-static/
-static
+statics/
+statics
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

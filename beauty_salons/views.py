@@ -14,10 +14,51 @@ from .utils import get_code
 
 
 def service(request):
+    if request.method == 'POST':
+        if 'phone' in request.POST:
+            form = PhoneForm(request.POST)
+            if form.is_valid():
+                phone = form.cleaned_data['phone']
+                consent = form.cleaned_data['consent']
+
+                code = get_code()
+                customer, created = CustomUser.objects.get_or_create(phone_number=phone, username=phone)
+                customer.pin = code
+                customer.save()
+
+                request.session['verification_code'] = code
+                request.session['phone'] = phone
+
+                return JsonResponse({'status': 'success', 'phone': phone, 'code': code})
+            else:
+                return JsonResponse({'status': 'error', 'errors': form.errors})
+        elif 'pin' in request.POST:
+            form = PinForm(request.POST)
+            if form.is_valid():
+                pin = form.cleaned_data['pin']
+                saved_code = request.session.get('verification_code')
+                phone = request.session.get('phone')
+                if pin == saved_code:
+                    user = CustomUser.objects.get(phone_number=phone)
+                    if user is not None:
+                        if user.is_superuser:
+                            link = '/account'
+                        else:
+                            link = '/notes'
+                        login(request, user)
+                        return JsonResponse({'status': 'success', 'redirect_url': link})
+                return JsonResponse({'status': 'success', 'pin': pin})
+            else:
+                return JsonResponse({'status': 'error', 'errors': form.errors})
+    else:
+        phone_form = PhoneForm()
+        pin_form = PinForm()
     salons = Salon.objects.all()
     categories = ServiceCategory.objects.all().prefetch_related('services')
     masters = Master.objects.all()
     context = {
+        'phone_form': phone_form,
+        'pin_form': pin_form,
         'salons': salons,
         'categories': categories,
         'masters': masters,
@@ -123,8 +164,6 @@ def index(request):
                 code = get_code()
                 customer, created = CustomUser.objects.get_or_create(phone_number=phone, username=phone)
                 customer.pin = code
-                customer.is_superuser = True
-                customer.is_staff = True
                 customer.save()
 
                 request.session['verification_code'] = code
@@ -142,8 +181,12 @@ def index(request):
                 if pin == saved_code:
                     user = CustomUser.objects.get(phone_number=phone)
                     if user is not None:
+                        if user.is_superuser:
+                            link = '/account'
+                        else:
+                            link = '/notes'
                         login(request, user)
-                        return JsonResponse({'status': 'success', 'redirect_url': 'account'})
+                        return JsonResponse({'status': 'success', 'redirect_url': link})
                 return JsonResponse({'status': 'success', 'pin': pin})
             else:
                 return JsonResponse({'status': 'error', 'errors': form.errors})

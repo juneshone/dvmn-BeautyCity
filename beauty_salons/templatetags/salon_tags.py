@@ -1,5 +1,5 @@
 from django import template
-
+from beauty_salons.forms import PhoneForm
 #
 
 register = template.Library()
@@ -13,3 +13,9 @@ def mobile_notes():
 @register.inclusion_tag("notes/note.html")
 def get_note(note):
     return {"note": note}
+
+
+@register.simple_tag(name="get_phone_form")
+def get_phone_form():
+    phone_form = PhoneForm()
+    return {"phone_form": phone_form}
