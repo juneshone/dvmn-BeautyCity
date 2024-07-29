@@ -430,19 +430,22 @@
 				<div class="title contacts__title">Контакты</div>
 				<div class="row">
 					<div class="col-md-12 col-lg-4 col-xl-3">
-						<form action="#" class="contacts__form">
+						<form action="#" class="contacts__form" onsubmit="setFormSubmitted()">
 							<div class="contacts__form_title">Оставьте заявку на консультацию</div>
 							<div class="contacts__form_block">
 								<input type="text" name="fname" class="contacts__form_iunput" placeholder="Введите имя" required>
 								<div class="contacts__form_inputBlock">
-									<input type="text" name="tel" class="contacts__form_iunput" placeholder="+7(999)999--99-99" required>
+										<input type="text" name="tel" class="contacts__form_iunput" placeholder="+7(999)999--99-99" required>
 								</div>
 							</div>
-							
+
 							<textarea name="contactsTextarea" class="contacts__form_textarea" placeholder="Вопрос(необязательно)"></textarea>
 							<div class="contacts__form_checkboxBlock fic">
 								<input type="checkbox" class="contacts__form_checkbox" checked>
-								<span class="contacts__form_checkboxBlock__intro">Я согласен(а) с политикой конфидециоальности</span>
+								<span class="contacts__form_checkboxBlock__intro">
+										Я согласен(а) с политикой конфиденциальности
+										<a href="{% static 'file.pdf' %}" target="_blank">(Политика конфиденциальности)</a>
+								</span>
 							</div>
 							<button type="submit" class="contacts__form_btn">Отправить</button>
 						</form>
@@ -502,6 +505,18 @@
 {% endblock %}
 
 {% block script %}
+	<script>
+			function setFormSubmitted() {
+					sessionStorage.setItem('formSubmitted', 'true');
+			}
+
+			document.addEventListener('DOMContentLoaded', function() {
+					if (sessionStorage.getItem('formSubmitted') === 'true') {
+							alert('Вам обязательно перезвонят!');
+							sessionStorage.removeItem('formSubmitted'); // Clear the flag
+					}
+			});
+	</script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="{% static 'js/air-datepicker.js' %}"></script>
