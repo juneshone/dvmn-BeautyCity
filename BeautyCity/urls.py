@@ -27,7 +27,7 @@ urlpatterns = [
     path('serviceFinally/', views.serviceFinally, name='serviceFinally'),
     path('notes/', views.notes, name='notes'),
     path('save_pay/', views.save_pay, name='save_pay'),
-    path('', views.send_phone, name='index'),
+    path('', views.index, name='index'),
     path('account/', views.account, name='account'),
     path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
     path('appointment/', views.appointment, name='appointment'),

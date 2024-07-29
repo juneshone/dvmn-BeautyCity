@@ -143,6 +143,18 @@ class Master(models.Model):
         blank=True,
         null=True,
     )
+    reviews = models.CharField(
+        'Отзывы',
+        max_length=100,
+        blank=True,
+        null=True,
+    )
+    experience = models.CharField(
+        'Стаж работы',
+        max_length=100,
+        blank=True,
+        null=True,
+    )
 
     def __str__(self):
         return self.name

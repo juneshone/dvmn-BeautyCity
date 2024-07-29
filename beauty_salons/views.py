@@ -13,10 +13,6 @@ from .models import Salon, Master, ServiceCategory, Appointment
 from .utils import get_code
 
 
-def index(request):
-    return render(request, 'index.html')
-
-
 def service(request):
     salons = Salon.objects.all()
     categories = ServiceCategory.objects.all().prefetch_related('services')
@@ -116,7 +112,7 @@ def save_pay(request):
     return JsonResponse({'status': 'ok'})
 
 
-def send_phone(request):
+def index(request):
     if request.method == 'POST':
         if 'phone' in request.POST:
             form = PhoneForm(request.POST)
@@ -154,5 +150,15 @@ def send_phone(request):
     else:
         phone_form = PhoneForm()
         pin_form = PinForm()
-    return render(request, 'index.html',
-                  {'phone_form': phone_form, 'pin_form': pin_form})
+
+    masters = Master.objects.all()
+    salons = Salon.objects.all()
+    services = Service.objects.all()
+
+    return render(request, 'index.html', {
+        'phone_form': phone_form,
+        'pin_form': pin_form,
+        'masters': masters,
+        'salons': salons,
+        'services': services
+    })
