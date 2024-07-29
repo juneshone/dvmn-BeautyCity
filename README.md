@@ -35,7 +35,7 @@ _Переменные окружения проекта:_
 
 ```ini
 ALLOWED_HOSTS='host1,host2'                 # белый список хостов
-DEBUG=True                                  # отладочный режим
+DEBUG_VALUE=True                            # отладочный режим
 SECRET_KEY='django_secret_key'              # секретный ключ django проекта
 STATIC_URL='static/'                        # префикс URL-адреса для статических файлов
 STATIC_ROOT='../site/static/'               # каталог для развертывания статических файлов
