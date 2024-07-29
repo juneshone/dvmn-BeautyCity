@@ -57,6 +57,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "BeautyCity.urls"
 
+if env.list("NGINX_DOMAINS", []):
+    CSRF_TRUSTED_ORIGINS = env.list("NGINX_DOMAINS")
+    USE_X_FORWARDED_HOST = True
+    USE_X_FORWARDED_PORT = True
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
