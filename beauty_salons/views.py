@@ -85,6 +85,12 @@ def serviceFinally(request):
 
 def appointment(request):
     if request.method == "POST":
+        print(request.POST)
+        if request.user.is_authenticated:
+            phone_number = request.user.phone_number
+        else:
+            phone_number = request.POST.get('phone_number')
+
         r = request.POST
         Appointment.objects.create(
             name=get_object_or_404(Service, name=r.get('service_choice')),
