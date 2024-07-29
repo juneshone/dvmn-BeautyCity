@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
 from .forms import PhoneForm, PinForm
-from .models import Pay, CustomUser, Service
+from .models import Pay, CustomUser, Service, Address
 from .models import Salon, Master, ServiceCategory, Appointment
 from .utils import get_code
 
@@ -154,11 +154,13 @@ def index(request):
     masters = Master.objects.all()
     salons = Salon.objects.all()
     services = Service.objects.all()
+    addresses = Address.objects.all()
 
     return render(request, 'index.html', {
         'phone_form': phone_form,
         'pin_form': pin_form,
         'masters': masters,
         'salons': salons,
-        'services': services
+        'services': services,
+        'addresses': addresses,
     })
