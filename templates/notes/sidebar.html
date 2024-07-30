@@ -7,7 +7,7 @@
       {% else %}
       <img src="{% static 'img/masters/avatar/all.svg' %}" alt="avatar" class="accaunt__ava_img">
       {% endif %}
-      <span class="accaunt__ava_name">Администратор ({{ user.phone_number }})</span>
+      <span class="accaunt__ava_name">{{ user.phone_number }}</span>
     </div>
     <div class="accaunt__settings fic">
       <a href="#" class="accaunt__settings_intro">Изменить профиль</a>
